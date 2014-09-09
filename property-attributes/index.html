@@ -37,6 +37,17 @@
 				box-shadow: none;
 				border:none;
 			}
+			.reveal h3.code {
+				font-family: monospace !important;
+				text-transform: none !important;
+			}
+			.reveal h3.code.long {
+				font-size: 1.35em !important;
+			}
+			.reveal code.big-code {
+				padding: 80px 15px;
+
+			}
 		</style>
 
 		<!--[if lt IE 9]>
@@ -60,7 +71,6 @@
 
 				<section>
 					<h2>A Quick Recap</h2>
-
 					<aside class="notes">
 						There is a bit of crossover here with last week and this is an attempt to fill in some of the blanks and pick up from where last weeks discussion left off.
 						- delete
@@ -70,18 +80,15 @@
 						- Debate about what we are talking about today
 						- Attributes of Object Properties
 					</aside>
-
 				</section>
 
 				<section>
 					<h2>Object Property Attributes</h2>
-
 					<aside class="notes">
 						- For those that missed last week - or were confused
 						- The concept of Object Propery Attributes
 						- Each property on an object has attributes that determine how you can work with it
 					</aside>
-
 				</section>
 
 				<section>
@@ -92,7 +99,6 @@
 						<li>Value</li>
 						<li>Writable</li>
 					</ul>
-
 					<aside class="notes">
 						- These are the attributes of a property
 						- Some of these have been touched on recently
@@ -100,78 +106,85 @@
 						- We will cover them in more detail today
 						- and look at how we can work with them
 					</aside>
-
 				</section>
 
 				<section>
 					<h2>Property Descriptor Object</h2>
-
 					<aside class="notes">
 						- The core concept of Object Property Attributes
 						- Is related to this special object
 						- The Property Descriptor Object
 					</aside>
-
 				</section>
 
 				<section data-transition="none">
-
 					<img src="images/property-descriptor-object-4.png" />
-
 					<aside class="notes">
 						{Notes here}
 					</aside>
-
 				</section>
 
 				<section data-transition="none">
-
 					<img src="images/property-descriptor-object-3.png" />
-
 					<aside class="notes">
 						{Notes here}
 					</aside>
-
 				</section>
 
 				<section data-transition="none">
-
 					<img src="images/property-descriptor-object-2.png" />
-
 					<aside class="notes">
 						- The Property Descriptor Object describes the property
 						- If we have 5 properties on an object,
 						- Then there will be 5 associated Property Descriptor Objects
 					</aside>
-
 				</section>
 
 				<section data-transition="none">
-
 					<img src="images/property-descriptor-object-1.png" />
-
 					<aside class="notes">
 						- The Property Descriptor Object defines the following properties
+						---
 						- These are the attributes of the Object property			
 						- configurable
 						- enumerable
 						- value
 						- writable
-
-						- Over the next X minutes we will go through these in turn to explain what they do and later how they can be changed.
+						---
+						- Over the next 15 minutes we will go through these in turn
+						- How to access them
+						- What they do
+						- How we can change them
 					</aside>
-
 				</section>
 
+				<section data-transition="none">
+					<h2>How do I access it?</h2>
+					<img src="images/property-descriptor-object-2.png" />
+					<aside class="notes">
+						- Let’s look at how we can access the Property Descriptor Object for a given property on an object 
+					</aside>
+				</section>
 
-				<section>
-					
-					<pre><code class="jscode" data-trim contenteditable>
-						var adam = { name: 'Adam' };
+				<section>				
+					<h3 class="code long">Object.getOwnPropertyDescriptor()</h3>
+					<aside class="notes">
+						- To do this we use Object.getOwnPropertyDescriptor() function
+						- This gets passed the object along with the propertt name we are interested in as an argument
+						- Notice this function is talking about ‘Own Property’ so it will not work with inherited properties.
+					</aside>				
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+Object.getOwnPropertyDescriptor(adam, 'name');
+
+Object {value: "Adam", writable: true, enumerable: true, configurable: true}
+
 					</code></pre>
-
 				</section>
-
 
 				<section>
 					<p>
