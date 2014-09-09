@@ -42,7 +42,7 @@
 				text-transform: none !important;
 			}
 			.reveal h3.code.long {
-				font-size: 1.35em !important;
+				font-size: 1.25em !important;
 			}
 			.reveal code.big-code {
 				padding: 80px 15px;
@@ -163,6 +163,9 @@
 					<img src="images/property-descriptor-object-2.png" />
 					<aside class="notes">
 						- Let’s look at how we can access the Property Descriptor Object for a given property on an object 
+						---
+						- And remember...
+						- Each of the created properties has an associated Property Descriptor Object.
 					</aside>
 				</section>
 
@@ -170,8 +173,11 @@
 					<h3 class="code long">Object.getOwnPropertyDescriptor()</h3>
 					<aside class="notes">
 						- To do this we use Object.getOwnPropertyDescriptor() function
-						- This gets passed the object along with the propertt name we are interested in as an argument
+						- This gets passed the object along with the property name we are interested in as an argument
 						- Notice this function is talking about ‘Own Property’ so it will not work with inherited properties.
+						---
+						---
+						- If you do want to access any inherited property… if you have inherited using Object.Create… then you will have to go to the prototype object.
 					</aside>				
 				</section>
 
@@ -184,6 +190,83 @@ Object.getOwnPropertyDescriptor(adam, 'name');
 Object {value: "Adam", writable: true, enumerable: true, configurable: true}
 
 					</code></pre>
+
+					<aside class="notes">
+						- Look at some example code
+						---
+						- Setup a basic object using Object literal
+						---
+						- Call getOwnPropertyDescriptor()
+						- To get theProperty Descriptor Object for 'adam.name'
+						- This gives us:
+						- configurable: true
+						- enumerable: true
+						- value: 'Adam'
+						- writable: true
+					</aside>
+				</section>
+
+				<section>
+					<h2>Great... but what do they mean?</h2>
+					<ul>
+						<li>Configurable</li>
+						<li>Enumerable</li>
+						<li>Value</li>
+						<li>Writable</li>
+					</ul>
+					<aside class="notes">
+						- There are specific complexities around these properties, but a basic high level view they mean the following.
+						---
+						- Configurable
+						- I'll star vauge on this for now
+						- You can configure this property
+						- More detail on this later.
+						---
+						- Enumerable
+						- Covered loosely last week
+						- Determines if the associated property is available within the 'for-in' loop.
+						- ie: if we iterate over the object's properties, it will be available
+						---
+						- Value
+						- Defines the value of the associated property.
+						---
+						- Writable
+						- Determines if you can set the value of the property.
+						- Usually through assignment
+						- More detail on this later
+						---
+						- Before we go into more detail
+						- I want to explore how we can interact with these attributes andfcustomise them
+					</aside>
+				</section>
+
+								<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+Object.getOwnPropertyDescriptor(adam, 'name');
+
+Object {value: "Adam", writable: true, enumerable: true, configurable: true}
+
+					</code></pre>
+
+					<aside class="notes">
+						- Notice when we created a new object with the Object literal
+						- The created properties picked up default values
+						---
+						- configurable: true
+						- enumerable: true
+						- value: {value}
+						- writable: true
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Gimmie damn control over them...</h2>
+					<aside class="notes">
+						- What if you want to have more control over these values
+					</aside>
 				</section>
 
 				<section>
