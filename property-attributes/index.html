@@ -16,6 +16,7 @@
 
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -30,6 +31,13 @@
 				document.getElementsByTagName( 'head' )[0].appendChild( link );
 			}
 		</script>
+
+		<style type="text/css">
+			.reveal section img {
+				box-shadow: none;
+				border:none;
+			}
+		</style>
 
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
@@ -55,9 +63,105 @@
 
 					<aside class="notes">
 						There is a bit of crossover here with last week and this is an attempt to fill in some of the blanks and pick up from where last weeks discussion left off.
+						- delete
+						- prototypal inheritance
+						- function invocation patterns
+						- Last week we touched on enumerating object properties
+						- Debate about what we are talking about today
+						- Attributes of Object Properties
 					</aside>
+
 				</section>
 
+				<section>
+					<h2>Object Property Attributes</h2>
+
+					<aside class="notes">
+						- For those that missed last week - or were confused
+						- The concept of Object Propery Attributes
+						- Each property on an object has attributes that determine how you can work with it
+					</aside>
+
+				</section>
+
+				<section>
+					<h2>Object Property Attributes</h2>
+					<ul>
+						<li>Configurable</li>
+						<li>Enumerable</li>
+						<li>Value</li>
+						<li>Writable</li>
+					</ul>
+
+					<aside class="notes">
+						- These are the attributes of a property
+						- Some of these have been touched on recently
+						- Enumerable last week
+						- We will cover them in more detail today
+						- and look at how we can work with them
+					</aside>
+
+				</section>
+
+				<section>
+					<h2>Property Descriptor Object</h2>
+
+					<aside class="notes">
+						- The core concept of Object Property Attributes
+						- Is related to this special object
+						- The Property Descriptor Object
+					</aside>
+
+				</section>
+
+				<section data-transition="none">
+
+					<img src="images/property-descriptor-object-4.png" />
+
+					<aside class="notes">
+						{Notes here}
+					</aside>
+
+				</section>
+
+				<section data-transition="none">
+
+					<img src="images/property-descriptor-object-3.png" />
+
+					<aside class="notes">
+						{Notes here}
+					</aside>
+
+				</section>
+
+				<section data-transition="none">
+
+					<img src="images/property-descriptor-object-2.png" />
+
+					<aside class="notes">
+						- The Property Descriptor Object describes the property
+						- If we have 5 properties on an object,
+						- Then there will be 5 associated Property Descriptor Objects
+					</aside>
+
+				</section>
+
+				<section data-transition="none">
+
+					<img src="images/property-descriptor-object-1.png" />
+
+					<aside class="notes">
+						- The Property Descriptor Object defines the following properties
+						- These are the attributes of the Object property			
+						- configurable
+						- enumerable
+						- value
+						- writable
+
+						- Over the next X minutes we will go through these in turn to explain what they do and later how they can be changed.
+					</aside>
+
+				</section>
 
 
 				<section>
@@ -415,6 +519,7 @@ function linkify( selector ) {
 				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
 				var notes = event.currentSlide.querySelector(".notes");
 				if(notes) {
+					console.clear();
 					console.log(notes.innerHTML.replace(/\n\s+/g,'\n'));
 				} else {
 				console.clear();
