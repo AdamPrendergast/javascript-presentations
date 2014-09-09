@@ -240,7 +240,7 @@ Object {value: "Adam", writable: true, enumerable: true, configurable: true}
 					</aside>
 				</section>
 
-								<section>			
+				<section>			
 					<pre><code class="jscode big-code" data-trim contenteditable>
 						
 var adam = { name: 'Adam' };
@@ -266,14 +266,357 @@ Object {value: "Adam", writable: true, enumerable: true, configurable: true}
 					<h2>Gimmie damn control over them...</h2>
 					<aside class="notes">
 						- What if you want to have more control over these values
+						- and
+						- If we want to create a new property with custom attributes for writable, enumerable, configurable.
+						---
+						- Then
+						- We can use this Javascript function...
+					</aside>
+				</section>
+
+				<section>				
+					<h3 class="code">Object.defineProperty()</h3>
+					<aside class="notes">
+						 - Object.defineProperty()
+						 ---
+						 - So we can use this instead of the standard way we create properties
+					</aside>				
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+
+					</code></pre>
+
+					<aside class="notes">
+						- So instead of creating properties like this...
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = {};
+adam.defineProperty(adam, 'name', { value: 'Adam' });
+
+					</code></pre>
+
+					<aside class="notes">
+						- We can use defineProperty()
+						---
+						- With this we pass:
+						- Object to add property to
+						- Name of the property to create
+						- Property Descriptor Object
+						---
+						- Property Descriptor Object
+						- Configurable
+						- Enumerable
+						- Value
+						- Writable
+						---
+						- We are just passing value here
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = {};
+Object.defineProperty(adam, 'name', { value: 'Adam' });
+
+Object.getOwnPropertyDescriptor(adam, 'name');
+
+Object {value: "Adam", writable: false, enumerable: false, configurable: false}
+
+					</code></pre>
+
+					<aside class="notes">
+						- It is worth noting
+						- As we are just passing 'Value'
+						- The remaining attributes are not set...
+						---
+						- So they are 'false'
+						- This can be quite surprising
+						- as the default with common property creation, they are true.
+						---
+						- For me this shows that you should only realy use defineProperty
+						- if you are looking to explictly edit the attributes to something other than true
+						---
+						- Otherwise .... -->
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = {};
+Object.defineProperty(
+	adam,
+	'name',
+	{ 
+		value: 'Adam',
+		writable: true,
+		enumerable: true,
+		configurable: true
+	});
+
+Object.getOwnPropertyDescriptor(adam, 'name');
+
+Object {value: "Adam", writable: true, enumerable: true, configurable: true}
+
+					</code></pre>
+
+					<aside class="notes">
+						- You are going to have to explicitly pass true to get the same behaviour we are used to
+					</aside>
+				</section>
+
+				<section>				
+					<h3 class="code">Object.defineProperty()</h3>
+					<aside class="notes">
+						 - So we can use Object.defineProperty() 
+						 - to create new properties with customised Property Attributes
+						 ---
+						 - But... we can also use it to...
+					</aside>				
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+Object.defineProperty(adam, 'name', { value: 'Bob' });
+
+adam.name // 'Bob'
+
+					</code></pre>
+
+					<aside class="notes">
+						- Change attributes on existing properties
+						---
+						- Here we are changing the value
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+Object.defineProperty(adam, 'name', { writable: false });
+
+Object.getOwnPropertyDescriptor(adam, 'name');
+
+Object {value: "Adam", writable: false, enumerable: true, configurable: true}
+
+					</code></pre>
+
+					<aside class="notes">
+						- ... and here we are changing writable to false
+					</aside>
+				</section>
+
+				<section>
+					<h2>Speaking of which...</h2>
+					<aside class="notes">
+						- Speaking of which
+						---
+						- We already have a concept of what
+						- value
+						- enumerable
+						- do from experience and last weeks talk
+						---
+						- If you are still unclear, talk to me after...
+						---
+						- But what about writable and configurble
+						- Firstly...
+					</aside>
+				</section>
+
+				<section>
+					<h2>Writable</h2>
+					<blockquote>
+						&ldquo;The writable attribute specifies whether the value of the property can be set.&rdquo;
+					</blockquote>
+					<aside class="notes">
+						- Writable
+						---
+						- The O'Reilly - Javascript: Definitive guide says:
+						- "The writable attribute specifies whether the value of the property can be set."
+						---
+						- Basically
+						- This determines if a property can have a writable assignment.
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+
+adam.name = 'Bob';
+
+adam.name; // 'Bob'
+
+					</code></pre>
+
+					<aside class="notes">
+						- This is how we are used to working with assignment
+						- This is because the writable attribute on the Property Descriptor Object
+						- ... is set to true.
+						---
+						- So by default
+						- we can change the value attribute of the property via assignment
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+
+Object.defineProperty(adam, 'name', { writable: false });
+
+adam.name = 'Bob';
+
+adam.name; // 'Adam'
+
+					</code></pre>
+
+					<aside class="notes">
+						- This is how that code would play if we changed writable to false
+						---
+						- Key thing to note here is that Javascript will not complain
+						- when we try and assign a new value to a non-writable property
+						---
+						- it just won't do it
+						---
+						- If strict mode is enabled
+						- An error will be thrown
 					</aside>
 				</section>
 
 				<section>
 					<p>
-						<a target="_blank" href="http://jsconsole.com/?var obj = {};">Link to JS Console</a>
+						<a target="_blank" href="http://jsconsole.com/?var adam = { name: 'Adam' };%0DObject.defineProperty(adam, 'name', { writable: false });%0D">Quick demonstration of that in action...</a>
 					</p>
 				</section>
+
+				<section>
+					<h2>Got it?</h2>
+					<aside class="notes">
+						-
+					</aside>
+				</section>
+
+				<section>
+					<h2>Good</h2>
+					<aside class="notes">
+						- Next on to...
+					</aside>
+				</section>
+
+				<section>
+					<h2>Configurable</h2>
+					<blockquote>
+						&ldquo;The configurable attribute specifies whether the property can be deleted and whether its attributes can be altered.&rdquo;
+					</blockquote>
+					<aside class="notes">
+						- Configurable
+						---
+						- The O'Reilly - Javascript: Definitive guide says:
+						- "The configurable attribute specifies whether the property can be deleted and whether its attributes can be altered."
+						---
+						- In that statement
+						- delete is relating to the usage of the delete keyword on the property
+						- 'attributes can be altered' relates to the property attributes, value, writable, enumerable
+						---
+						- To explain this
+						- Let's look at configurable in relation to writable.
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+
+Object.defineProperty(adam, 'name', { writable: false });
+
+adam.name = 'Bob';
+
+adam.name; // 'Adam'
+
+					</code></pre>
+
+					<aside class="notes">
+						- As we saw before, when we set writable to false, then we cannot assign a new value to the property in the traditional sense.
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+
+Object.defineProperty(adam, 'name', { writable: false });
+
+Object.defineProperty(adam, 'name', { value: 'Bob' });
+
+adam.name; // 'Bob'
+
+					</code></pre>
+
+					<aside class="notes">
+						- However, when writable is set to false
+						- We can still change the value by directly accessing the value attribute on the
+						- Property Descriptor Object
+						---
+						- This is because value is an attribute of the name property and configurable determines if these can be altered.
+					</aside>
+				</section>
+
+				<section>			
+					<pre><code class="jscode big-code" data-trim contenteditable>
+						
+var adam = { name: 'Adam' };
+
+Object.defineProperty(adam, 'name', { configurable: false, writable: false });
+
+Object.defineProperty(adam, 'name', { value: 'Bob' });
+
+// What happens here then?
+
+					</code></pre>
+
+					<p>
+						<a target="_blank" href="http://jsconsole.com/?var adam = { name: 'Adam' };%0DObject.defineProperty(adam, 'name', { configurable: false, writable: false });">In the console...</a>
+					</p>
+
+					<aside class="notes">
+						- Something like this...
+						---
+						- COPY THIS
+						- Object.defineProperty(adam, 'name', { value: 'Bob' });
+						---
+						- May need this
+						- Object.getOwnPropertyDescriptor();
+					</aside>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
