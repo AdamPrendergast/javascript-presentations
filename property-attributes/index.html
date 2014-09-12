@@ -73,10 +73,15 @@
 					<h2>A Quick Recap</h2>
 					<aside class="notes">
 						There is a bit of crossover here with last week and this is an attempt to fill in some of the blanks and pick up from where last weeks discussion left off.
+						---
+						Recently we have been covering:
+						---
 						- delete
 						- prototypal inheritance
 						- function invocation patterns
+						- this
 						- Last week we touched on enumerating object properties
+						---
 						- Debate about what we are talking about today
 						- Attributes of Object Properties
 					</aside>
@@ -86,8 +91,11 @@
 					<h2>Object Property Attributes</h2>
 					<aside class="notes">
 						- For those that missed last week - or were confused
+						- I'll be expanding on it today
+						---
 						- The concept of Object Propery Attributes
-						- Each property on an object has attributes that determine how you can work with it
+						- Each property on an object
+						- has attributes that determine how you can work with it
 					</aside>
 				</section>
 
@@ -299,7 +307,7 @@ var adam = { name: 'Adam' };
 					<pre><code class="jscode big-code" data-trim contenteditable>
 						
 var adam = {};
-adam.defineProperty(adam, 'name', { value: 'Adam' });
+Object.defineProperty(adam, 'name', { value: 'Adam' });
 
 					</code></pre>
 
@@ -677,6 +685,7 @@ Object.defineProperty(adam, 'name', { value: 'Bob' });
 
 				<section>
 					<h1>THE END</h1>
+					<a href="http://slides.com/up_and_adam/javascript-property-attributes/">slides.com/up_and_adam/javascript-property-attributes/</a>
 				</section>
 
 			</div>
